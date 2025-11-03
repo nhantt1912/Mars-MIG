@@ -15,6 +15,7 @@ import {
   ENEMY,
   ENEMY_BOSS,
   ENEMY_STATE,
+  ENEMY_TYPE,
   EVENT_TYPE,
   ITEM_TYPE,
   POOL_TYPE,
@@ -23,6 +24,7 @@ import Timer from "../../Core/Timer";
 import { Enemy } from "../Enemy";
 import { PoolManager } from "./PoolManager";
 import EventManager from "./EventManager";
+import { GameStateManager } from "./GameStateManager";
 const { ccclass, property } = _decorator;
 
 @ccclass("EnemiesManager")
@@ -93,12 +95,39 @@ export class EnemiesManager extends Component {
   }
 
   onReturnAllEnemy() {
-    this.arrEnemies = this.arrEnemies.filter((enemyNode) => {
-      if (enemyNode.active) {
-        PoolManager.Instance.returnObject(POOL_TYPE.ENEMY, enemyNode);
-        console.log(" Kill All Enemies And Complete Game ");
+    // this.arrEnemies = this.arrEnemies.filter((enemyNode) => {
+    //   if (enemyNode.active) {
+    //     PoolManager.Instance.returnObject(POOL_TYPE.ENEMY, enemyNode);
+    //     console.log(" Kill All Enemies And Complete Game ");
+    //     if(enemyNode.getComponent(Enemy)?.type == ENEMY_TYPE.BOSS) {
+    //       GameStateManager.Instance.win();
+    //     }
+    //     return false;
+    //   }
+    // });
+
+    let hasBoss = false;
+
+  this.arrEnemies.forEach((enemyNode) => {
+    if (enemyNode.active) {
+      const enemy = enemyNode.getComponent(Enemy);
+      
+      if (enemy?.type == ENEMY_TYPE.BOSS) {
+        hasBoss = true;
       }
-    });
+      
+      PoolManager.Instance.returnObject(POOL_TYPE.ENEMY, enemyNode);
+    }
+  });
+
+  this.arrEnemies = [];
+
+  if (hasBoss) {
+    console.log("Kill All Enemies Including Boss -> Win Game!");
+    GameStateManager.Instance.win();
+  } else {
+    console.log("Kill All Enemies");
+  }
   }
 
   private initPoolEnemies() {
@@ -187,7 +216,7 @@ export class EnemiesManager extends Component {
         PoolManager.Instance.returnObject(POOL_TYPE.ENEMY, enemyNode);
       }
     });
-    this.arrEnemies = []; // Clear array after returning all
+    this.arrEnemies = []; 
   }
 
   getPositons(number: number) {

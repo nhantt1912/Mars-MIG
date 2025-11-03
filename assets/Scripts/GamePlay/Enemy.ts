@@ -2,7 +2,7 @@ import { _decorator, Component, Node, Sprite, UITransform } from "cc";
 import { SpriteManager } from "./Manager/SpriteManager";
 import { EnemiesData } from "./Enemies";
 import { PoolManager } from "./Manager/PoolManager";
-import { ENEMY_STATE, EVENT_TYPE, POOL_TYPE } from "../Core/Defines";
+import { ENEMY_BOSS, ENEMY_STATE, ENEMY_TYPE, EVENT_TYPE, POOL_TYPE } from "../Core/Defines";
 import EventManager from "./Manager/EventManager";
 import { GameStateManager } from "./Manager/GameStateManager";
 const { ccclass, property } = _decorator;
@@ -13,6 +13,8 @@ export class Enemy extends Component {
   sprite: Sprite = null!;
 
   state = ENEMY_STATE.NONE;
+
+  type : ENEMY_TYPE = null!
 
   private dataEnemies = {
     hp: 0,
@@ -35,6 +37,7 @@ export class Enemy extends Component {
     this.sprite.spriteFrame = SpriteManager.Instance.ENEMY_SPRITE_TYPE[type];
     this.dataEnemies.isBoss = isBoss;
     this.state = state;
+    this.type = type;
 
   }
 
@@ -66,7 +69,7 @@ export class Enemy extends Component {
       case ENEMY_STATE.DEAD:
         PoolManager.Instance.returnObject(POOL_TYPE.ENEMY, this.node);
         break;
-
+        
     }
   }
 

@@ -49,6 +49,7 @@ export class InGameManager extends Component {
     console.log("You Win!");
     this.bulletManager.returnAllBullet();
     this.enemiesManager.returnAllEnemy();
+    this.itemManager.returnAllItem();
   }
 
   public pauseGame(): void {

@@ -40,7 +40,7 @@ export class ItemManager extends Component {
   }
 
   Update(dt: number) {
-    
+
     this.timer.Update(dt);
     if (this.timer.JustFinished()) {
       this.timer.SetDuration(5);
@@ -72,6 +72,13 @@ export class ItemManager extends Component {
     }
   }
 
+  returnAllItem() {
+    this.arrItem.forEach((item) => {
+      PoolManager.Instance.returnObject(POOL_TYPE.ITEM, item);
+    });
+    this.arrItem = [];
+  }
+
   getPosition() {
     if (!this.spawnZone) {
       console.error("SpawnZone is not assigned in ItemManager");
@@ -93,4 +100,5 @@ export class ItemManager extends Component {
     );
     return new Vec3(zonePos.x, y, 0);
   }
+  
 }

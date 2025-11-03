@@ -22,10 +22,10 @@ export enum POOL_TYPE {
 }
 
 
-export enum ENEMIES_TYPE {
+export enum ENEMY_TYPE {
   ENEMY_1,
   ENEMY_2,
-  ENEMY_3,
+  BOSS,
 }
 
 export enum EVENT_TYPE{
@@ -50,33 +50,33 @@ export const ENEMY = [
     {
       hp: 3,
       speed:200,
-      type: ENEMIES_TYPE.ENEMY_1,
+      type: ENEMY_TYPE.ENEMY_1,
     },
   ],
   [
     {
       hp: 3,
       speed: 200,
-      type: ENEMIES_TYPE.ENEMY_1,
+      type: ENEMY_TYPE.ENEMY_1,
     },
     {
       hp: 5,
       speed: 100,
-      type: ENEMIES_TYPE.ENEMY_2,
+      type: ENEMY_TYPE.ENEMY_2,
     },
   ],
   [
     {
       hp: 2,
       speed: 200,
-      type: ENEMIES_TYPE.ENEMY_1,
+      type: ENEMY_TYPE.ENEMY_1,
     },
   ],
   [
     {
       hp: 3,
       speed: 200,
-      type: ENEMIES_TYPE.ENEMY_1,
+      type: ENEMY_TYPE.ENEMY_1,
     },
   ],
 ];
@@ -84,6 +84,6 @@ export const ENEMY = [
 export const ENEMY_BOSS = {
   hp: 10,
   speed: 100,
-  type: ENEMIES_TYPE.ENEMY_3,
+  type: ENEMY_TYPE.BOSS,
 };
 

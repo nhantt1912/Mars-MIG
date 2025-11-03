@@ -13,6 +13,7 @@ import {
 } from "cc";
 import { BulletManager } from "../Manager/BulletManager";
 import Timer from "../../Core/Timer";
+import { GameStateManager } from "../Manager/GameStateManager";
 const { ccclass, property } = _decorator;
 
 @ccclass("PlayerController")
@@ -71,6 +72,9 @@ export class PlayerController extends Component {
   }
 
   onTouchStart(event: EventTouch) {
+    if(!GameStateManager.Instance.isPlaying()) return;
+
+    console.log("Touch Start");
     this.isShooting = true;
     this.timerShooting.SetDuration(0.2);
   }
